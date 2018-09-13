@@ -1,7 +1,15 @@
 {
   "object": {
     "pins": [
-
+      {
+        "package": "Unbox",
+        "repositoryURL": "https://github.com/johnsundell/unbox.git",
+        "state": {
+          "branch": null,
+          "revision": "e084f13aea85495b07d015e893845e097a5eaeb4",
+          "version": "3.0.0"
+        }
+      }
     ]
   },
   "version": 1

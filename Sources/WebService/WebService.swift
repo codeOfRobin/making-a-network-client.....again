@@ -1,4 +1,5 @@
 import Foundation
+import Unbox
 
 public enum Result<T> {
     case success(T)
@@ -24,6 +25,36 @@ public struct Resource<A> {
     public init(url: URL, parse: @escaping (Data) -> Result<A>) {
         self.url = url
         self.parse = parse
+    }
+}
+
+struct Episode {
+    
+}
+
+extension Episode {
+//    var media: Resource<Media> {
+//        let url = NSURL(string: "http://localhost:8000/episodes/\(id).json")!
+//        // TODO Return the resource ...
+//    }
+
+    static var all: Resource<[Int]> = Resource(url: URL(string: "http://localhost:8000/episodes/.json")!) { (data) in
+        return .success([1,2,3,4])
+    }
+}
+
+extension Resource where A: Unboxable {
+    init(url: URL, parse:  @escaping (Unboxer) -> Result<A>) {
+        self.url = url
+        self.parse = {
+            data in
+            do {
+                let item: A = try unbox(data: data)
+                return .success(item)
+            } catch {
+                return .failure(error)
+            }
+        }
     }
 }
 
